@@ -8,7 +8,7 @@ La interfaz permite buscar, filtrar, consultar y comparar 112 indicadores organi
 
 Sitio preparado para GitHub Pages:
 
-<https://juanchoas.github.io/banco-indicadores-educativos/>
+<https://juansuas.github.io/banco-indicadores-educativos/>
 
 ## Desarrollo local
 

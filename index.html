@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Catálogo metodológico de indicadores educativos basados en sistemas nominales.">
+  <title>BIE-SIGED | Banco de indicadores</title>
+  <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#catalogo">Ir al catálogo</a>
+  <header class="site-header">
+    <a class="brand" href="#inicio" aria-label="BIE-SIGED, inicio">
+      <span><strong>BIE—SIGED</strong><small>Banco de indicadores</small></span>
+    </a>
+    <div class="header-actions">
+      <div class="oei-credit" aria-label="OEI">
+        <span class="oei-logo-frame"><img src="assets/oei-logo-grafito.png" alt="OEI"></span>
+      </div>
+      <nav aria-label="Navegación principal">
+        <a href="#catalogo">Explorar</a>
+        <button class="text-button" id="methodology-button" type="button">Acerca del banco</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-grid">
+        <h1>Banco de Indicadores Educativos</h1>
+      </div>
+      <div class="hero-foot">
+        <div class="stat"><strong id="hero-count">—</strong><span>indicadores documentados</span></div>
+        <div class="stat"><strong id="group-count">—</strong><span>grupos desarrollados</span></div>
+      </div>
+    </section>
+
+    <section class="catalog-section" id="catalogo">
+      <div class="catalog-tools">
+        <div class="section-heading">
+          <h2>Encontrar un indicador</h2>
+        </div>
+
+        <div class="search-wrap">
+          <label for="search-input">Buscar en el banco</label>
+          <div class="search-field">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m21 21-4.35-4.35m2.35-5.65a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z"/></svg>
+            <input id="search-input" type="search" placeholder="Ej.: abandono, asistencia, egreso…" autocomplete="off">
+            <kbd>/</kbd>
+          </div>
+        </div>
+      </div>
+
+      <div class="catalog-layout">
+        <aside class="filters" id="filters" aria-label="Filtros del catálogo">
+          <section class="group-overview" aria-labelledby="group-overview-title">
+            <div class="group-overview-head">
+              <p class="side-kicker">Recorridos</p>
+              <h3 id="group-overview-title">Familias del banco</h3>
+            </div>
+            <div class="group-cards" id="group-cards"></div>
+          </section>
+          <div class="filters-title">
+            <h3>Afinar resultados</h3>
+            <button class="text-button" id="clear-filters" type="button">Limpiar</button>
+          </div>
+          <div class="filter-group">
+            <label for="group-filter">Grupo temático</label>
+            <select id="group-filter"><option value="">Todos los grupos</option></select>
+          </div>
+          <div class="filter-group">
+            <label for="scope-filter">Población o ámbito</label>
+            <select id="scope-filter"><option value="">Todos</option></select>
+          </div>
+          <div class="filter-group">
+            <label for="time-filter">Temporalidad</label>
+            <select id="time-filter"><option value="">Todas</option></select>
+          </div>
+          <div class="filter-group">
+            <label for="purpose-filter">Propósito</label>
+            <select id="purpose-filter"><option value="">Todos</option></select>
+          </div>
+          <div class="filter-group">
+            <label for="disaggregation-filter">Desagregación</label>
+            <select id="disaggregation-filter"><option value="">Todas</option></select>
+          </div>
+          <p class="filter-note">Las desagregaciones combinan los cortes transversales y las relaciones específicas registradas en las tablas.</p>
+        </aside>
+
+        <div class="catalog-results">
+          <div class="results-toolbar">
+            <p aria-live="polite"><strong id="result-count">—</strong> resultados</p>
+            <button class="filter-toggle" id="filter-toggle" type="button" aria-expanded="false" aria-controls="filters">Filtros</button>
+            <label>Orden
+              <select id="sort-select">
+                <option value="number">Número</option>
+                <option value="name">Nombre</option>
+                <option value="group">Grupo</option>
+              </select>
+            </label>
+          </div>
+          <div class="indicator-list" id="indicator-list"></div>
+          <div class="empty-state" id="empty-state" hidden>
+            <p class="empty-number">00</p>
+            <h3>No encontramos coincidencias</h3>
+            <p>Probá con otro término o limpiá los filtros seleccionados.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="compare-bar" id="compare-bar" hidden>
+    <div><span>Comparación</span><strong id="compare-count">0 de 3</strong></div>
+    <div class="compare-actions">
+      <button class="text-button light" id="clear-compare" type="button">Vaciar</button>
+      <button class="button light-button" id="open-compare" type="button">Comparar indicadores</button>
+    </div>
+  </div>
+
+  <dialog class="detail-dialog" id="detail-dialog">
+    <div class="dialog-shell">
+      <button class="dialog-close" data-close="detail-dialog" type="button" aria-label="Cerrar ficha">×</button>
+      <article id="detail-content"></article>
+    </div>
+  </dialog>
+
+  <dialog class="compare-dialog" id="compare-dialog">
+    <div class="dialog-shell wide-shell">
+      <button class="dialog-close" data-close="compare-dialog" type="button" aria-label="Cerrar comparación">×</button>
+      <div id="compare-content"></div>
+    </div>
+  </dialog>
+
+  <dialog class="about-dialog" id="about-dialog">
+    <div class="dialog-shell compact-shell">
+      <button class="dialog-close" data-close="about-dialog" type="button" aria-label="Cerrar">×</button>
+      <p class="eyebrow">Acerca del banco</p>
+      <h2>Un catálogo de procedimientos</h2>
+      <p>El BIE-SIGED reúne indicadores cuyo cálculo se apoya en registros nominalizados de estudiantes. La mayoría no se reduce a una fórmula: reconstruye estados y eventos a lo largo del tiempo.</p>
+      <p>Esta versión permite explorar los metadatos disponibles. No contiene bases nominales ni resultados educativos.</p>
+    </div>
+  </dialog>
+
+  <footer>
+    <strong>BIE—SIGED</strong>
+    <p>Banco de indicadores basados en sistemas nominales.</p>
+    <p>Consulta metodológica de indicadores.</p>
+  </footer>
+
+  <template id="indicator-template">
+    <article class="indicator-row">
+      <div class="indicator-index"></div>
+      <div class="indicator-main">
+        <p class="indicator-group"></p>
+        <button class="indicator-title" type="button"></button>
+        <p class="indicator-summary"></p>
+        <div class="indicator-meta"></div>
+      </div>
+      <div class="indicator-actions">
+        <label class="compare-check"><input type="checkbox"><span>Comparar</span></label>
+        <button class="arrow-button" type="button" aria-label="Abrir ficha">↗</button>
+      </div>
+    </article>
+  </template>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
